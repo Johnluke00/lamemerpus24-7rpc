@@ -7,50 +7,36 @@ const client = new Discord.Client({
 const keepAlive = require('./server.js');
 keepAlive();
 
-function formatTime() { //Credits to himika#0001 and never#0001
-  const date = new Date();
-  const options = {
-    timeZone: 'America/Port_of_Spain', //https://www.zeitverschiebung.net/en/ and find your city and enter here
-    hour12: true,
-    hour: 'numeric',
-    minute: 'numeric'
-  };
-  return new Intl.DateTimeFormat('en-US', options).format(date);
-}
-
 client.on('ready', async () => {
   console.clear();
-  console.log(`${client.user.tag} - rpc started! check your profile ^^`);
+  console.log(`${client.user.tag} - rich presence started!`);
 
   const r = new Discord.RichPresence()
-    .setApplicationId('1189883886579232788')
-    .setType('STREAMING')
-    .setURL('https://www.youtube.com/watch?v=HAuuvGQkZnw') //Must be a youtube video link 
-    .setState('Sleepy')
-    .setName('randomness')
-    .setDetails(`Hey 👋⚓ [${formatTime()}]`)
+    .setApplicationId('1154459332914720878')
+    .setType('PLAYING')
+    .setURL('https://twitch.tv/discord')
+    .setState('Team MGC 💀')
+
+    .setName('Bleeding KidneY 🍒')
+    .setDetails('Playing As Duggles D Xebec ♂️')
+    .setParty({
+        max: 9999,
+        current: 6789,
+        id: Discord.getUUID(),
+    })
+
     .setStartTimestamp(Date.now())
- .setAssetsLargeImage('https://cdn.discordapp.com/attachments/1150242860273254460/1201348112325824592/latest_banner.gif') //You can put links in tenor or discord and etc.
-    .setAssetsLargeText('insert funny text') //Text when you hover the Large image
-    .setAssetsSmallImage('https://cdn.discordapp.com/attachments/1150242860273254460/1190250393746280509/cc5323ff-e634-4a9b-8320-2cb09efa665a.gif') //You can put links in tenor or discord and etc.
-    .setAssetsSmallText('You weirdo, why would you hover over the small image.') //Text when you hover the Small image
-    .addButton('My Site 🔨', 'https://vornexx.is-a.dev')
-    .addButton('My Rentry Page ✏️💞', 'https://rentry.co/vornexx')
-
+    .setAssetsLargeImage('https://media.discordapp.net/external/g0dRFUr3eL4xv76GNWWUjAT9c2MEkXWtxGkumpjbHeU/https/i.pinimg.com/originals/19/f7/e8/19f7e88ecdf3ead830ee96a82e3de21a.gif')
+    .setAssetsSmallImage('https://media.discordapp.net/external/eK_s96YiVIfvG14xk6TFz4ZQWuVTRi0M_I7oPZhpoto/https/emoji.discadia.com/emojis/798267a5-3e6c-4168-a56c-9fc4be65aad3.gif')
+    
+    .setAssetsLargeText('Team MGC')
+    .addButton('Connect To Server🌡️', 'https://dsc.gg/kurukkanmoola')
+    .addButton('CHROME 🦄', 'https://google.com');
+  
   client.user.setActivity(r);
-  client.user.setPresence({ status: "dnd" }); //dnd, online, idle, offline
+  client.user.setPresence({ status: "dnd" });
+})
 
-  let prevTime = null;
-  setInterval(() => {
-    const newTime = formatTime();
-    if (newTime !== prevTime) {
-      const newDetails = `Hey 👋⚓ [${newTime}]`;
-      r.setDetails(newDetails);
-      client.user.setActivity(r);
-      prevTime = newTime;
-    }
-  }, 1000); // Update every second
-});
+client.login(process.env.TOKEN)
 
-const mySecret = process.env['TOKEN'];
-client.login(mySecret);
+// Join discord.gg/CyberSec for support! //
